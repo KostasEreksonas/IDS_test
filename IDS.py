@@ -7,4 +7,5 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 
-
+with open("dataset/kddcup.names", 'r') as f:
+    print(f.read())
