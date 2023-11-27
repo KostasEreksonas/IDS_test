@@ -22,16 +22,16 @@ with open("dataset/attack.types", 'r') as f:
     attacks = f.read()
 
 attacks = attacks.split()
-arr1,arr2 = [[] for x in range(2)]
+attack_name,attack_type = [[] for x in range(2)]
 attack_dict = {}
 for x in range(0,len(attacks)):
     if x == 0:
-        arr1.append(attacks[x])
+        attack_name.append(attacks[x])
     elif x % 2 == 0:
-        arr1.append(attacks[x])
+        attack_name.append(attacks[x])
     elif x % 2 != 0:
-        arr2.append(attacks[x])
-print(f"arr1: {arr1}, arr2 {arr2}")
-for x in range(0,len(arr2)):
-    attack_dict[arr1[x]] = arr2[x]
+        attack_type.append(attacks[x])
+print(f"attack_name: {attack_name}, attack_type {attack_type}")
+for x in range(0,len(attack_type)):
+    attack_dict[attack_name[x]] = attack_type[x]
 print(attack_dict)
