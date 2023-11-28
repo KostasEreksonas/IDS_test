@@ -41,11 +41,20 @@ def add_feature(path, columns, rows):
     df['Attack Type'] = df['dst_host_srv_rerror_rate'].map(rows)
     return df
 
+def shape(dataframe):
+    return dataframe.shape
+
+def find_missing(dataframe):
+    return dataframe.isnull().sum()
+
 def main():
     path = "dataset/KDDTrain+_20Percent.txt"
     columns = features()
     rows = attacks()
-    print(add_feature(path, columns, rows))
+    #print(add_feature(path, columns, rows))
+    df = add_feature(path, columns, rows)
+    print(f"Shape: {shape(df)}")
+    print(f"Missing:\n{find_missing(df)}")
 
 if __name__ == "__main__":
     main()
