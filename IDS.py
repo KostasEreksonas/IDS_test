@@ -34,7 +34,7 @@ def attacks():
 # Adding Attack Type column
 def add_feature(path, columns, rows):
     df = pd.read_csv(path, names = columns)
-    df['Attack Type'] = df['dst_host_srv_rerror_rate'].map(rows)
+    df['Attack Type'] = df['class'].map(rows)
     return df
 
 def shape(dataframe):
@@ -55,6 +55,7 @@ def main():
     columns = features()
     rows = attacks()
     df = add_feature(path, columns, rows)
+    print(df)
 
 if __name__ == "__main__":
     main()
