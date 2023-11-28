@@ -10,8 +10,7 @@ import time
 # Read feature names
 def features():
     with open("dataset/kddcup.names", 'r') as f:
-        cols = f.read()
-    cols = cols.split()
+        cols = f.read().split()
     columns = []
     for col in cols:
         columns.append(col)
@@ -20,20 +19,17 @@ def features():
 # Read attack types
 def attacks():
     with open("dataset/attack.types", 'r') as f:
-        attacks = f.read()
-    attacks = attacks.split()
+        data = f.read().split()
     attack_name,attack_type = [[] for x in range(2)]
-    attack_dict = {}
-    for x in range(0,len(attacks)):
+    attacks = {}
+    for x in range(0,len(data)):
         if x == 0 or x % 2 == 0:
-            attack_name.append(attacks[x])
+            attack_name.append(data[x])
         elif x % 2 != 0:
-            attack_type.append(attacks[x])
+            attack_type.append(data[x])
     for x in range(0,len(attack_type)):
-        attack_dict[attack_name[x]] = attack_type[x]
-    #inverse = {v: k for k, v in attack_dict.items()}
-    #attack_dict = inverse
-    return attack_dict
+        attacks[attack_name[x]] = attack_type[x]
+    return attacks
 
 # Adding Attack Type column
 def add_feature(path, columns, rows):
@@ -51,10 +47,7 @@ def main():
     path = "dataset/KDDTrain+_20Percent.txt"
     columns = features()
     rows = attacks()
-    #print(add_feature(path, columns, rows))
     df = add_feature(path, columns, rows)
-    print(f"Shape: {shape(df)}")
-    print(f"Missing:\n{find_missing(df)}")
 
 if __name__ == "__main__":
     main()
