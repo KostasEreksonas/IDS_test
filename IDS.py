@@ -31,20 +31,21 @@ def attacks():
             attack_type.append(attacks[x])
     for x in range(0,len(attack_type)):
         attack_dict[attack_name[x]] = attack_type[x]
+    #inverse = {v: k for k, v in attack_dict.items()}
+    #attack_dict = inverse
     return attack_dict
 
+# Adding Attack Type column
+def add_feature(path, columns, rows):
+    df = pd.read_csv(path, names = columns)
+    df['Attack Type'] = df['dst_host_srv_rerror_rate'].map(rows)
+    return df
+
 def main():
-    #print(f"Features: {features()}")
-    #print(f"Attacks: {attacks()}")
-    #path = "dataset/KDDTrain+_20Percent.txt"
-    #columns = features()
-    #attacks_types = attacks()
-    #print(attacks_types)
-    #df = pd.read_csv(path, names = columns)
-    # Adding Attack Type column
-    #df['Attack Type'] = attacks_types
-    #print(df)
-    #df.head()
+    path = "dataset/KDDTrain+_20Percent.txt"
+    columns = features()
+    rows = attacks()
+    print(add_feature(path, columns, rows))
 
 if __name__ == "__main__":
     main()
