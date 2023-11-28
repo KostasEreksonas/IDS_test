@@ -38,16 +38,24 @@ def add_feature(path, columns, rows):
     return df
 
 def shape(dataframe):
-    return dataframe.shape
+    return df.shape
 
-def find_missing(dataframe):
-    return dataframe.isnull().sum()
+def find_missing(df):
+    return df.isnull().sum()
+
+def get_coorelation(df):
+    df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
+    corr = df.corr(numeric_only=True)
+    plt.figure(figsize =(15, 12))
+    sns.heatmap(corr)
+    plt.show()
 
 def main():
     path = "dataset/KDDTrain+_20Percent.txt"
     columns = features()
     rows = attacks()
     df = add_feature(path, columns, rows)
+    get_coorelation(df)
 
 if __name__ == "__main__":
     main()
