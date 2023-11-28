@@ -55,7 +55,6 @@ def main():
     columns = features()
     rows = attacks()
     df = add_feature(path, columns, rows)
-    get_coorelation(df)
 
 if __name__ == "__main__":
     main()
