@@ -25,9 +25,7 @@ def attacks():
     attack_name,attack_type = [[] for x in range(2)]
     attack_dict = {}
     for x in range(0,len(attacks)):
-        if x == 0:
-            attack_name.append(attacks[x])
-        elif x % 2 == 0:
+        if x == 0 or x % 2 == 0:
             attack_name.append(attacks[x])
         elif x % 2 != 0:
             attack_type.append(attacks[x])
@@ -36,8 +34,17 @@ def attacks():
     return attack_dict
 
 def main():
-    print(f"Features: {features()}")
-    print(f"Attacks: {attacks()}")
+    #print(f"Features: {features()}")
+    #print(f"Attacks: {attacks()}")
+    #path = "dataset/KDDTrain+_20Percent.txt"
+    #columns = features()
+    #attacks_types = attacks()
+    #print(attacks_types)
+    #df = pd.read_csv(path, names = columns)
+    # Adding Attack Type column
+    #df['Attack Type'] = attacks_types
+    #print(df)
+    #df.head()
 
 if __name__ == "__main__":
     main()
