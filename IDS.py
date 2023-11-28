@@ -43,7 +43,7 @@ def shape(dataframe):
 def find_missing(df):
     return df.isnull().sum()
 
-def get_coorelation(df):
+def get_correlation(df):
     df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
     corr = df.corr(numeric_only=True)
     plt.figure(figsize =(15, 12))
