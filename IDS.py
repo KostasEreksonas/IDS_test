@@ -52,7 +52,8 @@ def get_correlation(df):
     sns.heatmap(corr)
     plt.show()
 
-def map_features(path, columns, rows):
+# Encode text data using one-hot encoding method
+def encode_features(path, columns, rows):
     df = add_feature(path, columns, rows)
     pmap = {'icmp':0, 'tcp':1, 'udp':2}
     fmap = {'SF':0, 'S0':1, 'REJ':2, 'RSTR':3, 'RSTO':4, 'SH':5, 'S1':6, 'S2':7, 'RSTOS0':8, 'S3':9, 'OTH':10}
@@ -66,12 +67,32 @@ def map_features(path, columns, rows):
     df['Attack Type'] = df['Attack Type'].map(tmap)
     return df
 
+# Create a bar plot from dictionary
+def bar_graph(data, xlabel, ylabel, title):
+    keys = list(data.keys())
+    values = list(data.values())
+    fig = plt.figure(figsize = (10, 5))
+    plt.bar(keys, values, color ='maroon', width = 0.4)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.grid(visible=None, which='both', axis='both')
+    plt.show()
+
+def plot_protocol(path, columns, rows):
+    df = add_feature(path, columns, rows)
+    data = {}
+    keys = df['protocol_type'].unique()
+    for key in keys:
+        data[key] = df['protocol_type'].value_counts()[key]
+    bar_graph(data, "Protocol type", "Occurrences", "Protocol occurrences by type")
+
 def main():
     path = "dataset/KDDTrain+_20Percent.txt"
     columns = features()
     rows = attacks()
-    df = map_features(path, columns, rows)
-    print(df)
+    #df = encode_features(path, columns, rows)
+    plot_protocol(path, columns, rows)
 
 if __name__ == "__main__":
     main()
