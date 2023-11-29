@@ -149,8 +149,8 @@ def model(path, columns, rows):
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(f"plots/acc.png")
-    print("[+] Graph saved at: plots/acc.png")
+    plt.savefig(f"plots/accuracy.png")
+    print("[+] Graph saved at: plots/accuracy.png")
     # Graph of training and validation loss values
     print("[+] Neural network loss value graph")
     plt.plot(history.history['loss'])
