@@ -6,8 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
-from sklearn.model_selection import train_test_split 
-from sklearn.preprocessing import MinMaxScaler 
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
 
 # Read feature names
 def features():
@@ -68,7 +68,7 @@ def encode_features(path, columns, rows):
     return df
 
 # Create a bar plot from dictionary
-def bar_graph(data, xlabel, ylabel, title):
+def bar_graph(data, xlabel, ylabel, title, filename):
     keys = list(data.keys())
     values = list(data.values())
     fig = plt.figure(figsize = (10, 5))
@@ -77,23 +77,27 @@ def bar_graph(data, xlabel, ylabel, title):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.grid(visible=None, which='both', axis='both')
-    plt.savefig("plots/protocols.png")
-    print("Plot saved to plots/protocols.png")
+    plt.savefig(f"plots/{filename}")
+    print(f"Plot saved to plots/{filename}")
 
-def plot_protocol(path, columns, rows):
+def plot(path, columns, rows, column_name, xlabel, ylabel, title, filename):
     df = add_feature(path, columns, rows)
     data = {}
-    keys = df['protocol_type'].unique()
+    keys = df[column_name].unique()
     for key in keys:
-        data[key] = df['protocol_type'].value_counts()[key]
-    bar_graph(data, "Protocol type", "Occurrences", "Protocol occurrences by type")
+        data[key] = df[column_name].value_counts()[key]
+    bar_graph(data, xlabel, ylabel, title, filename)
+
+def draw_plots(path, columns, rows):
+    plot(path, columns, rows, "protocol_type", "Type", "Occurrences", "Protocol occurrences by type", "protocols.png")
+    plot(path, columns, rows, "Attack Type", "Type", "Occurrences", "Attack occurrences by type", "attacks.png")
+    plot(path, columns, rows, "logged_in", "Logged in (1 - Yes, 0 - No)", "Occurrences", "Successfully logged in", "logged.png")
 
 def main():
     path = "dataset/KDDTrain+_20Percent.txt"
     columns = features()
     rows = attacks()
-    #df = encode_features(path, columns, rows)
-    plot_protocol(path, columns, rows)
+    draw_plots(path, columns, rows)
 
 if __name__ == "__main__":
     main()
