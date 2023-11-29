@@ -77,7 +77,8 @@ def bar_graph(data, xlabel, ylabel, title):
     plt.ylabel(ylabel)
     plt.title(title)
     plt.grid(visible=None, which='both', axis='both')
-    plt.show()
+    plt.savefig("plots/protocols.png")
+    print("Plot saved to plots/protocols.png")
 
 def plot_protocol(path, columns, rows):
     df = add_feature(path, columns, rows)
