@@ -11,6 +11,7 @@ import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, GRU
 from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.utils import to_categorical, plot_model
 
 # Read feature names
 def features():
@@ -135,6 +136,31 @@ def model(path, columns, rows):
     print("\n[+] Model accuracy")
     print("-----------------------")
     print(f"Accuracy: {score[1]*100}%")
+    print("\n[+] Graphs of a created neural network")
+    print("------------------------------------------------")
+    print("[+] Neural network block scheme")
+    plot_model(model, to_file='plots/model.png')
+    print(f"[+] Graph saved at: plots/model.png")
+    # Graph of training and validation accuracy values
+    print("[+] Neural network accuracy graph")
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(f"plots/acc.png")
+    print("[+] Graph saved at: plots/acc.png")
+    # Graph of training and validation loss values
+    print("[+] Neural network loss value graph")
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(f"plots/loss.png")
+    print(f"[+] Graph saved at: plots/loss.png")
 
 def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
