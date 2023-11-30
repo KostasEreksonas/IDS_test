@@ -13,8 +13,8 @@ from keras.layers import Dense, Dropout, GRU
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical, plot_model
 
-# Read feature names
 def features():
+    """Read dataset names"""
     with open("dataset/kddcup.names", 'r') as f:
         cols = f.read().split()
     columns = []
@@ -22,8 +22,8 @@ def features():
         columns.append(col)
     return columns
 
-# Read attack types
 def attacks():
+    """Put attack names and types into a dictionary {name:type}"""
     with open("dataset/attack.types", 'r') as f:
         data = f.read().split()
     attack_name,attack_type = [[] for x in range(2)]
@@ -37,27 +37,30 @@ def attacks():
         attacks[attack_name[x]] = attack_type[x]
     return attacks
 
-# Adding Attack Type column
 def add_feature(path, columns, rows):
+    """Add attack type feature to a dataframe"""
     df = pd.read_csv(path, names = columns)
     df['Attack Type'] = df['class'].map(rows)
     return df
 
 def shape(dataframe):
+    """Get shape of a given dataframe"""
     return df.shape
 
 def find_missing(df):
+    """Find missing values"""
     return df.isnull().sum()
 
 def get_correlation(df):
+    """Draw a feature heatmap"""
     df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
     corr = df.corr(numeric_only=True)
     plt.figure(figsize =(15, 12))
     sns.heatmap(corr)
     plt.show()
 
-# Create a bar plot from dictionary
 def bar_graph(data, xlabel, ylabel, title, filename):
+    """Draw a bar graph"""
     keys = list(data.keys())
     values = list(data.values())
     fig = plt.figure(figsize = (10, 5))
@@ -70,6 +73,7 @@ def bar_graph(data, xlabel, ylabel, title, filename):
     print(f"Plot saved to plots/{filename}")
 
 def plot(df, graph, column_name, xlabel, ylabel, title, filename):
+    """Plot a graph"""
     data = {}
     keys = df[column_name].unique()
     for key in keys:
@@ -78,13 +82,14 @@ def plot(df, graph, column_name, xlabel, ylabel, title, filename):
         bar_graph(data, title, xlabel, ylabel, filename)
 
 def draw_plots(path, columns, rows):
+    """Draw bar plots for visualizing features"""
     df = add_feature(path, columns, rows)
     plot(df, "Bar", "protocol_type", "Type", "Occurrences", "Protocol occurrences by type", "protocols.png")
     plot(df, "Bar", "Attack Type", "Type", "Occurrences", "Attack occurrences by type", "attacks.png")
     plot(df, "Bar", "logged_in", "Logged in (1 - Yes, 0 - No)", "Occurrences", "Successfully logged in", "logged.png")
 
-# Encode text data using one-hot encoding method
 def encode_features(path, columns, rows):
+    """Encode text data using one-hot encoding method"""
     df = add_feature(path, columns, rows)
     pmap = {'icmp':0, 'tcp':1, 'udp':2}
     fmap = {'SF':0, 'S0':1, 'REJ':2, 'RSTR':3, 'RSTO':4, 'SH':5, 'S1':6, 'S2':7, 'RSTOS0':8, 'S3':9, 'OTH':10}
@@ -99,19 +104,25 @@ def encode_features(path, columns, rows):
     return df
 
 def data_preprocessing(path, columns, rows, scaler):
+    """Preprocess data for training and testing ML models"""
+    # Get data
     train_data = encode_features(path[0], columns, rows)
     test_data = encode_features(path[2], columns, rows)
+    # Prepare train data
     trainX = train_data[train_data.columns[:43]]
     trainX = scaler.fit_transform(trainX)
     trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
-    trainY = train_data[train_data.columns[-1]]
+    # Prepare test data
     testX = test_data[test_data.columns[:43]]
     testX = scaler.fit_transform(testX)
     testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+    # Get labels
+    trainY = train_data[train_data.columns[-1]]
     testY = test_data[test_data.columns[-1]]
     return trainX, trainY, testX, testY
 
 def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
+    """Plot a line graph for training and testing results"""
     plt.plot(data.history[line1])
     plt.plot(data.history[line2])
     plt.title(title)
@@ -122,6 +133,7 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     print(f"[+] Graph saved at: plots/{filename}")
 
 def model(path, columns, rows):
+    """A deep neural network model"""
     trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
     # Creating model
     model = Sequential()
