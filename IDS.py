@@ -62,25 +62,26 @@ def bar_graph(data, xlabel, ylabel, title, filename):
     values = list(data.values())
     fig = plt.figure(figsize = (10, 5))
     plt.bar(keys, values, color ='maroon', width = 0.4)
+    plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
-    plt.title(title)
     plt.grid(visible=None, which='both', axis='both')
     plt.savefig(f"plots/{filename}")
     print(f"Plot saved to plots/{filename}")
 
-def plot(path, columns, rows, column_name, xlabel, ylabel, title, filename):
-    df = add_feature(path, columns, rows)
+def plot(df, graph, column_name, xlabel, ylabel, title, filename):
     data = {}
     keys = df[column_name].unique()
     for key in keys:
         data[key] = df[column_name].value_counts()[key]
-    bar_graph(data, xlabel, ylabel, title, filename)
+    if graph == "Bar":
+        bar_graph(data, title, xlabel, ylabel, filename)
 
 def draw_plots(path, columns, rows):
-    plot(path, columns, rows, "protocol_type", "Type", "Occurrences", "Protocol occurrences by type", "protocols.png")
-    plot(path, columns, rows, "Attack Type", "Type", "Occurrences", "Attack occurrences by type", "attacks.png")
-    plot(path, columns, rows, "logged_in", "Logged in (1 - Yes, 0 - No)", "Occurrences", "Successfully logged in", "logged.png")
+    df = add_feature(path, columns, rows)
+    plot(df, "Bar", "protocol_type", "Type", "Occurrences", "Protocol occurrences by type", "protocols.png")
+    plot(df, "Bar", "Attack Type", "Type", "Occurrences", "Attack occurrences by type", "attacks.png")
+    plot(df, "Bar", "logged_in", "Logged in (1 - Yes, 0 - No)", "Occurrences", "Successfully logged in", "logged.png")
 
 # Encode text data using one-hot encoding method
 def encode_features(path, columns, rows):
@@ -109,6 +110,16 @@ def data_preprocessing(path, columns, rows, scaler):
     testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
     testY = test_data[test_data.columns[-1]]
     return trainX, trainY, testX, testY
+
+def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
+    plt.plot(data.history[line1])
+    plt.plot(data.history[line2])
+    plt.title(title)
+    plt.ylabel(ylabel)
+    plt.xlabel(xlabel)
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(f"plots/{filename}")
+    print(f"[+] Graph saved at: plots/{filename}")
 
 def model(path, columns, rows):
     trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
@@ -141,26 +152,10 @@ def model(path, columns, rows):
     print("[+] Neural network block scheme")
     plot_model(model, to_file='plots/model.png')
     print(f"[+] Graph saved at: plots/model.png")
-    # Graph of training and validation accuracy values
     print("[+] Neural network accuracy graph")
-    plt.plot(history.history['accuracy'])
-    plt.plot(history.history['val_accuracy'])
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(f"plots/accuracy.png")
-    print("[+] Graph saved at: plots/accuracy.png")
-    # Graph of training and validation loss values
+    line_graph(history, "accuracy", "val_accuracy", "Model accuracy", "Accuracy", "Epoch", "accuracy.png")
     print("[+] Neural network loss value graph")
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(f"plots/loss.png")
-    print(f"[+] Graph saved at: plots/loss.png")
+    line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
 def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
