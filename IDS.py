@@ -99,8 +99,8 @@ def encode_features(path, columns, rows):
     return df
 
 def data_preprocessing(path, columns, rows, scaler):
-    train_data = encode_features(path[1], columns, rows)
-    test_data = encode_features(path[3], columns, rows)
+    train_data = encode_features(path[0], columns, rows)
+    test_data = encode_features(path[2], columns, rows)
     trainX = train_data[train_data.columns[:43]]
     trainX = scaler.fit_transform(trainX)
     trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
@@ -117,7 +117,7 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     plt.title(title)
     plt.ylabel(ylabel)
     plt.xlabel(xlabel)
-    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.legend(['Train', 'Test'], loc='lower right')
     plt.savefig(f"plots/{filename}")
     print(f"[+] Graph saved at: plots/{filename}")
 
@@ -133,14 +133,10 @@ def model(path, columns, rows):
     model.add(Dropout(0.2))
     model.add(Dense(5, activation='softmax'))   # Output layer
     sgd = SGD(learning_rate=0.01, momentum=0.9, nesterov=True)
-    model.compile(loss='sparse_categorical_crossentropy',
-                optimizer=sgd,
-                metrics=['accuracy'])
+    model.compile(loss='sparse_categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     print("\n[+] Model training and validation")
     print("---------------------------------------")
-    history = model.fit(trainX, trainY,
-              epochs=20,
-              batch_size=16, validation_split=0.1, verbose=1)
+    history = model.fit(trainX, trainY, epochs=20, batch_size=16, validation_split=0.1, verbose=1)
     print("\n[+] Model testing")
     print("------------------------")
     score = model.evaluate(testX, testY, batch_size=16)
