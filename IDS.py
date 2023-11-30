@@ -27,12 +27,12 @@ def attacks():
     with open("dataset/attack.types", 'r') as f:
         data = f.read().split()
     attack_name,attack_type = [[] for x in range(2)]
-    attacks = {}
     for x in range(0,len(data)):
         if x == 0 or x % 2 == 0:
             attack_name.append(data[x])
         elif x % 2 != 0:
             attack_type.append(data[x])
+    attacks = {}
     for x in range(0,len(attack_type)):
         attacks[attack_name[x]] = attack_type[x]
     return attacks
@@ -43,7 +43,7 @@ def add_feature(path, columns, rows):
     df['Attack Type'] = df['class'].map(rows)
     return df
 
-def shape(dataframe):
+def shape(df):
     """Get shape of a given dataframe"""
     return df.shape
 
@@ -57,7 +57,8 @@ def get_correlation(df):
     corr = df.corr(numeric_only=True)
     plt.figure(figsize =(15, 12))
     sns.heatmap(corr)
-    plt.show()
+    plt.savefig(f"plots/features/heatmap.png")
+    print(f"Plot saved to plots/features/heatmap.png")
 
 def bar_graph(data, xlabel, ylabel, title, filename):
     """Draw a bar graph"""
@@ -165,6 +166,10 @@ def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
+    df = add_feature(path[0], columns, rows)
+    print(shape(df))
+    print(find_missing(df))
+    get_correlation(df)
     model(path, columns, rows)
 
 if __name__ == "__main__":
