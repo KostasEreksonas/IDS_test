@@ -69,8 +69,8 @@ def bar_graph(data, xlabel, ylabel, title, filename):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.grid(visible=None, which='both', axis='both')
-    plt.savefig(f"plots/{filename}")
-    print(f"Plot saved to plots/{filename}")
+    plt.savefig(f"plots/features/{filename}")
+    print(f"Plot saved to plots/features/{filename}")
 
 def plot(df, graph, column_name, xlabel, ylabel, title, filename):
     """Plot a graph"""
@@ -129,8 +129,8 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     plt.ylabel(ylabel)
     plt.xlabel(xlabel)
     plt.legend(['Train', 'Test'], loc='lower right')
-    plt.savefig(f"plots/{filename}")
-    print(f"[+] Graph saved at: plots/{filename}")
+    plt.savefig(f"plots/results/{filename}")
+    print(f"[+] Graph saved at: plots/results/{filename}")
 
 def model(path, columns, rows):
     """A deep neural network model"""
@@ -155,8 +155,8 @@ def model(path, columns, rows):
     print(f"\n[+] Model accuracy\n-----------------------\nAccuracy: {score[1]*100}%")
     print(f"\n[+] Running time\n-----------------------\nTime: {end-start:.2f} seconds")
     print("\n[+] Graphs of a created neural network\n------------------------------------------------\n[+] Neural network block scheme")
-    plot_model(model, to_file='plots/model.png')
-    print(f"[+] Graph saved at: plots/model.png\n[+] Neural network accuracy graph")
+    plot_model(model, to_file='plots/model/model.png')
+    print(f"[+] Graph saved at: plots/model/model.png\n[+] Neural network accuracy graph")
     line_graph(history, "accuracy", "val_accuracy", "Model accuracy", "Accuracy", "Epoch", "accuracy.png")
     print("[+] Neural network loss value graph")
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
