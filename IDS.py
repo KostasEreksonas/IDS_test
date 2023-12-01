@@ -166,10 +166,8 @@ def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
-    df = add_feature(path[0], columns, rows)
-    print(shape(df))
-    print(find_missing(df))
-    get_correlation(df)
+    print(f"Shape of {path[0]}: {shape(add_feature(path[0], columns, rows))}\nshape of {path[1]}: {shape(add_feature(path[1], columns, rows))}\nshape of {path[2]}: {shape(add_feature(path[2], columns, rows))}\nshape of {path[3]}: {shape(add_feature(path[3], columns, rows))}\n")
+    print(f"Missing of {path[0]}: {find_missing(add_feature(path[0], columns, rows))}\nmissing of {path[1]}: {find_missing(add_feature(path[1], columns, rows))}\nmissing of {path[2]}: {find_missing(add_feature(path[2], columns, rows))}\nmissing of {path[3]}: {find_missing(add_feature(path[3], columns, rows))}\n")
     model(path, columns, rows)
 
 if __name__ == "__main__":
