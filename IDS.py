@@ -112,11 +112,11 @@ def data_preprocessing(path, columns, rows, scaler):
     # Prepare train data
     trainX = train_data[train_data.columns[:43]]
     trainX = scaler.fit_transform(trainX)
-    trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
+    #trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
     # Prepare test data
     testX = test_data[test_data.columns[:43]]
     testX = scaler.fit_transform(testX)
-    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+    #testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
     # Get labels
     trainY = train_data[train_data.columns[-1]]
     testY = test_data[test_data.columns[-1]]
@@ -132,6 +132,23 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     plt.legend(['Train', 'Test'], loc='lower right')
     plt.savefig(f"plots/results/{filename}")
     print(f"[+] Graph saved at: plots/results/{filename}")
+
+def gaussianNB(path, columns, rows):
+    trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
+    # Gaussian Naive Bayes
+    from sklearn.naive_bayes import GaussianNB
+    from sklearn.metrics import accuracy_score
+    clfg = GaussianNB()
+    start_time = time.time()
+    clfg.fit(trainX, trainY.values.ravel())
+    end_time = time.time()
+    print("Training time: ", end_time-start_time)
+    start_time = time.time()
+    y_test_pred = clfg.predict(trainX)
+    end_time = time.time()
+    print("Testing time: ", end_time-start_time)
+    print("Train score is:", clfg.score(trainX, trainY))
+    print("Test score is:", clfg.score(testX, testY))
 
 def neural_network(path, columns, rows):
     """A deep neural network model"""
@@ -166,7 +183,8 @@ def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
-    neural_network(path, columns, rows)
+    #neural_network(path, columns, rows)
+    gaussianNB(path, columns, rows)
 
 if __name__ == "__main__":
     main()
