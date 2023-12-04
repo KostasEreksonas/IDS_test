@@ -134,8 +134,8 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     print(f"[+] Graph saved at: plots/results/{filename}")
 
 def gaussianNB(path, columns, rows):
+    """Gaussian Naive Bayes implementation"""
     trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
-    # Gaussian Naive Bayes
     from sklearn.naive_bayes import GaussianNB
     from sklearn.metrics import accuracy_score
     clfg = GaussianNB()
