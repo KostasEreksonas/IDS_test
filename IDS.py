@@ -112,11 +112,11 @@ def data_preprocessing(path, columns, rows, scaler):
     # Prepare train data
     trainX = train_data[train_data.columns[:43]]
     trainX = scaler.fit_transform(trainX)
-    #trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
+    trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
     # Prepare test data
     testX = test_data[test_data.columns[:43]]
     testX = scaler.fit_transform(testX)
-    #testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
+    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
     # Get labels
     trainY = train_data[train_data.columns[-1]]
     testY = test_data[test_data.columns[-1]]
@@ -184,7 +184,11 @@ def main():
     columns = features()
     rows = attacks()
     #neural_network(path, columns, rows)
-    gaussianNB(path, columns, rows)
+    #gaussianNB(path, columns, rows)
+    add_feature(path[0], columns, rows).to_csv('Train.csv')
+    add_feature(path[1], columns, rows).to_csv('Train20.csv')
+    add_feature(path[2], columns, rows).to_csv('Test.csv')
+    add_feature(path[3], columns, rows).to_csv('Test21.csv')
 
 if __name__ == "__main__":
     main()
