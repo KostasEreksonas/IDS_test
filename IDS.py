@@ -185,10 +185,12 @@ def main():
     rows = attacks()
     #neural_network(path, columns, rows)
     #gaussianNB(path, columns, rows)
-    add_feature(path[0], columns, rows).to_csv('Train.csv')
-    add_feature(path[1], columns, rows).to_csv('Train20.csv')
-    add_feature(path[2], columns, rows).to_csv('Test.csv')
-    add_feature(path[3], columns, rows).to_csv('Test21.csv')
+    #add_feature(path[0], columns, rows).to_csv('Train.csv')
+    #add_feature(path[1], columns, rows).to_csv('Train20.csv')
+    #add_feature(path[2], columns, rows).to_csv('Test.csv')
+    #add_feature(path[3], columns, rows).to_csv('Test21.csv')
+    df = add_feature(path[0], columns, rows)
+    print(df['protocol_type'].value_counts().to_frame())
 
 if __name__ == "__main__":
     main()
