@@ -1,0 +1,4 @@
+protocol_type,count
+tcp,102689
+udp,14993
+icmp,8291
