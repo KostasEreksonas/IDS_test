@@ -190,7 +190,13 @@ def main():
     #add_feature(path[2], columns, rows).to_csv('Test.csv')
     #add_feature(path[3], columns, rows).to_csv('Test21.csv')
     df = add_feature(path[0], columns, rows)
+    print(df)
     print(df['protocol_type'].value_counts().to_frame())
+    df['protocol_type'].value_counts().to_frame().to_csv('Values.csv')
+    print(df['service'].value_counts().to_frame())
+    df['service'].value_counts().to_frame().to_csv('Services.csv')
+    print(df['class'].value_counts().to_frame())
+    df['class'].value_counts().to_frame().to_csv('Classes.csv')
 
 if __name__ == "__main__":
     main()
