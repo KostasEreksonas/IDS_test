@@ -115,7 +115,7 @@ def data_preprocessing(path, columns, rows, scaler):
     trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
     # Prepare test data
     testX = test_data[test_data.columns[:43]]
-    testX = scaler.fit_transform(testX)
+    testX = scaler.transform(testX)
     testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
     # Get labels
     trainY = train_data[train_data.columns[-1]]
@@ -189,15 +189,11 @@ def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
-    #neural_network(path, columns, rows)
-    #df = add_feature(path[0], columns, rows)
-    #print(df)
-    #print(df['protocol_type'].value_counts().to_frame())
-    #df['protocol_type'].value_counts().to_frame().to_csv('Values.csv')
-    #print(df['service'].value_counts().to_frame())
-    #df['service'].value_counts().to_frame().to_csv('Services.csv')
-    #print(df['class'].value_counts().to_frame())
-    #df['class'].value_counts().to_frame().to_csv('Classes.csv')
+    df = add_feature(path[0], columns, rows)
+    print(df)
+    print(df['protocol_type'].value_counts().to_frame())
+    print(df['service'].value_counts().to_frame())
+    print(df['class'].value_counts().to_frame())
 
 if __name__ == "__main__":
     main()
