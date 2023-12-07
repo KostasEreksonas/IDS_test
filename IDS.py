@@ -179,16 +179,17 @@ def neural_network(path, columns, rows):
     print("[+] Neural network loss value graph")
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
+def to_csv(path, columns, rows):
+    add_feature(path[0], columns, rows).to_csv('Train.csv')
+    add_feature(path[1], columns, rows).to_csv('Train20.csv')
+    add_feature(path[2], columns, rows).to_csv('Test.csv')
+    add_feature(path[3], columns, rows).to_csv('Test21.csv')
+
 def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
-    neural_network(path, columns, rows)
-    #gaussianNB(path, columns, rows)
-    #add_feature(path[0], columns, rows).to_csv('Train.csv')
-    #add_feature(path[1], columns, rows).to_csv('Train20.csv')
-    #add_feature(path[2], columns, rows).to_csv('Test.csv')
-    #add_feature(path[3], columns, rows).to_csv('Test21.csv')
+    #neural_network(path, columns, rows)
     #df = add_feature(path[0], columns, rows)
     #print(df)
     #print(df['protocol_type'].value_counts().to_frame())
