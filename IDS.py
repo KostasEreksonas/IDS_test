@@ -166,7 +166,7 @@ def neural_network(path, columns, rows):
     model.compile(loss='sparse_categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     start = time.perf_counter()
     print("\n[+] Model training and validation\n---------------------------------------")
-    history = model.fit(trainX, trainY, epochs=20, batch_size=16, validation_split=0.1, verbose=1)
+    history = model.fit(trainX, trainY, epochs=1, batch_size=16, validation_split=0.1, verbose=1)
     print("\n[+] Model testing\n------------------------")
     score = model.evaluate(testX, testY, batch_size=16)
     end = time.perf_counter()
