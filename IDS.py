@@ -189,11 +189,12 @@ def main():
     path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
     columns = features()
     rows = attacks()
-    df = add_feature(path[0], columns, rows)
-    print(df)
-    print(df['protocol_type'].value_counts().to_frame())
-    print(df['service'].value_counts().to_frame())
-    print(df['class'].value_counts().to_frame())
+    neural_network(path, columns, rows)
+    #df = add_feature(path[0], columns, rows)
+    #print(df)
+    #print(df['protocol_type'].value_counts().to_frame())
+    #print(df['service'].value_counts().to_frame())
+    #print(df['class'].value_counts().to_frame())
 
 if __name__ == "__main__":
     main()
