@@ -24,6 +24,7 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
 
 def neural_network():
     """A deep neural network model"""
+    # Load data
     trainX, trainY = NSL_KDD.preprocessing("data/NSL_KDD/KDDTrain+.txt")
     testX, testY = NSL_KDD.preprocessing("data/NSL_KDD/KDDTest+.txt")
     # Creating model
@@ -39,7 +40,7 @@ def neural_network():
     model.compile(loss='sparse_categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     start = time.perf_counter()
     print("\n[+] Model training and validation\n---------------------------------------")
-    history = model.fit(trainX, trainY, epochs=20, batch_size=16, validation_split=0.1, verbose=1)
+    history = model.fit(trainX, trainY, epochs=1, batch_size=16, validation_split=0.1, verbose=1)
     print("\n[+] Model testing\n------------------------")
     score = model.evaluate(testX, testY, batch_size=16)
     end = time.perf_counter()

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import re
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -50,9 +51,10 @@ def preprocessing(path):
     """Preprocess data for training"""
     columns = features()
     rows = attacks()
+    scaler = MinMaxScaler()
     data = encode_features(path, columns, rows)
     X = data[data.columns[:43]]
-    X = MinMaxScaler().fit_transform(X)
+    X = scaler.fit_transform(X)
     X = np.reshape(X, (X.shape[0], 1, X.shape[1]))
     Y = data[data.columns[-1]]
     return X, Y
