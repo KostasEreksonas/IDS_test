@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import imports/data/NSL_KDD/NSL_KDD
+import NSL_KDD
 import os
 import pandas as pd
 import numpy as np
@@ -19,52 +19,6 @@ def add_feature(path, columns, rows):
     df = pd.read_csv(path, names = columns)
     df['Attack Type'] = df['class'].map(rows)
     return df
-
-def shape(df):
-    """Get shape of a given dataframe"""
-    return df.shape
-
-def find_missing(df):
-    """Find missing values"""
-    return df.isnull().sum()
-
-def get_correlation(df):
-    """Draw a feature heatmap"""
-    df = df[[col for col in df if df[col].nunique() > 1]] # keep columns where there are more than 1 unique values
-    corr = df.corr(numeric_only=True)
-    plt.figure(figsize =(15, 12))
-    sns.heatmap(corr)
-    plt.savefig(f"plots/features/heatmap.png")
-    print(f"Plot saved to plots/features/heatmap.png")
-
-def bar_graph(data, xlabel, ylabel, title, filename):
-    """Draw a bar graph"""
-    keys = list(data.keys())
-    values = list(data.values())
-    fig = plt.figure(figsize = (10, 5))
-    plt.bar(keys, values, color ='maroon', width = 0.4)
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.grid(visible=None, which='both', axis='both')
-    plt.savefig(f"plots/features/{filename}")
-    print(f"Plot saved to plots/features/{filename}")
-
-def plot(df, graph, column_name, xlabel, ylabel, title, filename):
-    """Plot a graph"""
-    data = {}
-    keys = df[column_name].unique()
-    for key in keys:
-        data[key] = df[column_name].value_counts()[key]
-    if graph == "Bar":
-        bar_graph(data, title, xlabel, ylabel, filename)
-
-def draw_plots(path, columns, rows):
-    """Draw bar plots for visualizing features"""
-    df = add_feature(path, columns, rows)
-    plot(df, "Bar", "protocol_type", "Type", "Occurrences", "Protocol occurrences by type", "protocols.png")
-    plot(df, "Bar", "Attack Type", "Type", "Occurrences", "Attack occurrences by type", "attacks.png")
-    plot(df, "Bar", "logged_in", "Logged in (1 - Yes, 0 - No)", "Occurrences", "Successfully logged in", "logged.png")
 
 def encode_features(path, columns, rows):
     """Encode text data using one-hot encoding method"""
@@ -110,23 +64,6 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     plt.savefig(f"plots/results/{filename}")
     print(f"[+] Graph saved at: plots/results/{filename}")
 
-def gaussianNB(path, columns, rows):
-    """Gaussian Naive Bayes implementation"""
-    trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
-    from sklearn.naive_bayes import GaussianNB
-    from sklearn.metrics import accuracy_score
-    clfg = GaussianNB()
-    start_time = time.time()
-    clfg.fit(trainX, trainY.values.ravel())
-    end_time = time.time()
-    print("Training time: ", end_time-start_time)
-    start_time = time.time()
-    y_test_pred = clfg.predict(trainX)
-    end_time = time.time()
-    print("Testing time: ", end_time-start_time)
-    print("Train score is:", clfg.score(trainX, trainY))
-    print("Test score is:", clfg.score(testX, testY))
-
 def neural_network(path, columns, rows):
     """A deep neural network model"""
     trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
@@ -156,22 +93,8 @@ def neural_network(path, columns, rows):
     print("[+] Neural network loss value graph")
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
-def to_csv(path, columns, rows):
-    add_feature(path[0], columns, rows).to_csv('Train.csv')
-    add_feature(path[1], columns, rows).to_csv('Train20.csv')
-    add_feature(path[2], columns, rows).to_csv('Test.csv')
-    add_feature(path[3], columns, rows).to_csv('Test21.csv')
-
 def main():
-    path = ["impots/data/NSL_KDD/KDDTrain+.txt", "imports/data/NSL_KDD/KDDTrain+_20Percent.txt", "imports/data/NSL_KDD/KDDTest+.txt", "imports/data/NSL_KDD/KDDTest-21.txt"]
-    columns = NSL_KDD.features()
-    rows = NSL_KDD.attacks()
-    neural_network(path, columns, rows)
-    #df = add_feature(path[0], columns, rows)
-    #print(df)
-    #print(df['protocol_type'].value_counts().to_frame())
-    #print(df['service'].value_counts().to_frame())
-    #print(df['class'].value_counts().to_frame())
+    print(NSL_KDD.data_preprocessing(NSL_KDD.features(), NSL_KDD.attacks()))
 
 if __name__ == "__main__":
     main()
