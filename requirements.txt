@@ -1,3 +1,4 @@
+re
 pandas
 seaborn
 numpy
