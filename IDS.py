@@ -2,56 +2,14 @@
 
 import NSL_KDD
 import os
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
 import tensorflow as tf
-from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, GRU
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical, plot_model
-
-def add_feature(path, columns, rows):
-    """Add attack type feature to a dataframe"""
-    df = pd.read_csv(path, names = columns)
-    df['Attack Type'] = df['class'].map(rows)
-    return df
-
-def encode_features(path, columns, rows):
-    """Encode text data using one-hot encoding method"""
-    df = add_feature(path, columns, rows)
-    pmap = {'icmp':0, 'tcp':1, 'udp':2}
-    fmap = {'SF':0, 'S0':1, 'REJ':2, 'RSTR':3, 'RSTO':4, 'SH':5, 'S1':6, 'S2':7, 'RSTOS0':8, 'S3':9, 'OTH':10}
-    smap = {'aol':0, 'auth':1, 'bgp':2, 'courier':3, 'csnet_ns':4, 'ctf':5, 'daytime':6, 'discard':7, 'domain':8, 'domain_u':9, 'echo':10, 'eco_i':11, 'ecr_i':12, 'efs':13, 'exec':14, 'finger':15, 'ftp':16, 'ftp_data':17, 'gopher':18, 'harvest':19, 'hostnames':20, 'http':21, 'http_2784':22, 'http_443':23, 'http_8001':24, 'imap4':25, 'IRC':26, 'iso_tsap':27, 'klogin':28, 'kshell':29, 'ldap':30, 'link':31, 'login':32, 'mtp':33, 'name':34, 'netbios_dgm':35, 'netbios_ns':36, 'netbios_ssn':37, 'netstat':38, 'nnsp':39, 'nntp':40, 'ntp_u':41, 'other':42, 'pm_dump':43, 'pop_2':44, 'pop_3':45, 'printer':46, 'private':47, 'red_i':48, 'remote_job':49, 'rje':50, 'shell':51, 'smtp':52, 'sql_net':53, 'ssh':54, 'sunrpc':55, 'supdup':56, 'systat':57, 'telnet':58, 'tftp_u':59, 'time':60, 'tim_i':61, 'urh_i':62, 'urp_i':63, 'uucp':64, 'uucp_path':65, 'vmnet':66, 'whois':67, 'X11':68, 'Z39_50':69}
-    cmap = {'back':0, 'land':1, 'neptune':2, 'pod':3, 'smurf':4, 'teardrop':5, 'processtable':6, 'udpstorm':7, 'mailbomb':8, 'apache2':9, 'ipsweep':10, 'mscan':11, 'nmap':12, 'portsweep':13, 'saint':14, 'satan':15, 'ftp_write':16, 'guess_passwd':17, 'imap':18, 'multihop':19, 'phf':20, 'warezmaster':21, 'warezclient':22, 'spy':23, 'sendmail':24, 'xlock':25, 'snmpguess':26, 'named':27, 'xsnoop':28, 'snmpgetattack':29, 'worm':30, 'buffer_overflow':31, 'loadmodule':32, 'perl':33, 'rootkit':34, 'xterm':35, 'ps':36, 'httptunnel':37, 'sqlattack':38, 'normal':39}
-    tmap = {'normal':0, 'dos':1, 'probe':2, 'r2l':3, 'u2r':3}
-    df['protocol_type'] = df['protocol_type'].map(pmap)
-    df['flag'] = df['flag'].map(fmap)
-    df['service'] = df['service'].map(smap)
-    df['class'] = df['class'].map(cmap)
-    df['Attack Type'] = df['Attack Type'].map(tmap)
-    return df
-
-def data_preprocessing(path, columns, rows, scaler):
-    """Preprocess data for training and testing ML models"""
-    # Get data
-    train_data = encode_features(path[0], columns, rows)
-    test_data = encode_features(path[2], columns, rows)
-    # Prepare train data
-    trainX = train_data[train_data.columns[:43]]
-    trainX = scaler.fit_transform(trainX)
-    trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
-    # Prepare test data
-    testX = test_data[test_data.columns[:43]]
-    testX = scaler.transform(testX)
-    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
-    # Get labels
-    trainY = train_data[train_data.columns[-1]]
-    testY = test_data[test_data.columns[-1]]
-    return trainX, trainY, testX, testY
 
 def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     """Plot a line graph for training and testing results"""
@@ -64,9 +22,10 @@ def line_graph(data, line1, line2, title, ylabel, xlabel, filename):
     plt.savefig(f"plots/results/{filename}")
     print(f"[+] Graph saved at: plots/results/{filename}")
 
-def neural_network(path, columns, rows):
+def neural_network():
     """A deep neural network model"""
-    trainX, trainY, testX, testY = data_preprocessing(path, columns, rows, MinMaxScaler())
+    trainX, trainY = NSL_KDD.preprocessing("data/NSL_KDD/KDDTrain+.txt")
+    testX, testY = NSL_KDD.preprocessing("data/NSL_KDD/KDDTest+.txt")
     # Creating model
     model = Sequential()
     model.add(GRU(256, input_shape=(1,43)))     # Gated Recurrent Unit
@@ -94,7 +53,7 @@ def neural_network(path, columns, rows):
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
 def main():
-    print(NSL_KDD.data_preprocessing(NSL_KDD.features(), NSL_KDD.attacks()))
+    neural_network()
 
 if __name__ == "__main__":
     main()

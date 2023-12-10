@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+
 def features():
     """Read dataset names"""
     with open("data/NSL_KDD/kddcup.names", 'r') as f:
@@ -42,20 +46,13 @@ def encode_features(path, columns, rows):
     df['Attack Type'] = df['Attack Type'].map(tmap)
     return df
 
-def data_preprocessing(columns, rows):
-    """Preprocess data for training and testing ML models"""
-    # Get data
-    train_data = encode_features("data/NSL_KDD/KDDTrain+.txt", columns, rows)
-    test_data = encode_features("data/NSL_KDD/KDDTest+.txt", columns, rows)
-    # Prepare train data
-    trainX = train_data[train_data.columns[:43]]
-    trainX = MinMaxScaler().fit_transform(trainX)
-    trainX = np.reshape(trainX, (trainX.shape[0], 1, trainX.shape[1]))
-    # Prepare test data
-    testX = test_data[test_data.columns[:43]]
-    testX = scaler.transform(testX)
-    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
-    # Get labels
-    trainY = train_data[train_data.columns[-1]]
-    testY = test_data[test_data.columns[-1]]
-    return trainX, trainY, testX, testY
+def preprocessing(path):
+    """Preprocess data for training"""
+    columns = features()
+    rows = attacks()
+    data = encode_features(path, columns, rows)
+    X = data[data.columns[:43]]
+    X = MinMaxScaler().fit_transform(X)
+    X = np.reshape(X, (X.shape[0], 1, X.shape[1]))
+    Y = data[data.columns[-1]]
+    return X, Y
