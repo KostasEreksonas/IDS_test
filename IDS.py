@@ -1,41 +1,18 @@
 #!/usr/bin/env python3
 
+import imports/data/NSL_KDD/NSL_KDD
 import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
-from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
+from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, GRU
 from tensorflow.keras.optimizers import SGD
 from tensorflow.keras.utils import to_categorical, plot_model
-
-def features():
-    """Read dataset names"""
-    with open("dataset/kddcup.names", 'r') as f:
-        cols = f.read().split()
-    columns = []
-    for col in cols:
-        columns.append(col)
-    return columns
-
-def attacks():
-    """Put attack names and types into a dictionary {name:type}"""
-    with open("dataset/attack.types", 'r') as f:
-        data = f.read().split()
-    attack_name,attack_type = [[] for x in range(2)]
-    for x in range(0,len(data)):
-        if x == 0 or x % 2 == 0:
-            attack_name.append(data[x])
-        elif x % 2 != 0:
-            attack_type.append(data[x])
-    attacks = {}
-    for x in range(0,len(attack_type)):
-        attacks[attack_name[x]] = attack_type[x]
-    return attacks
 
 def add_feature(path, columns, rows):
     """Add attack type feature to a dataframe"""
@@ -186,9 +163,9 @@ def to_csv(path, columns, rows):
     add_feature(path[3], columns, rows).to_csv('Test21.csv')
 
 def main():
-    path = ["dataset/KDDTrain+.txt", "dataset/KDDTrain+_20Percent.txt", "dataset/KDDTest+.txt", "dataset/KDDTest-21.txt"]
-    columns = features()
-    rows = attacks()
+    path = ["impots/data/NSL_KDD/KDDTrain+.txt", "imports/data/NSL_KDD/KDDTrain+_20Percent.txt", "imports/data/NSL_KDD/KDDTest+.txt", "imports/data/NSL_KDD/KDDTest-21.txt"]
+    columns = NSL_KDD.features()
+    rows = NSL_KDD.attacks()
     neural_network(path, columns, rows)
     #df = add_feature(path[0], columns, rows)
     #print(df)
