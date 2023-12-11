@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""Prepare NSL-KDD dataset for for model training, testing and validation"""
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
@@ -8,10 +8,7 @@ def features():
     """Read dataset names"""
     with open("data/NSL_KDD/kddcup.names", 'r') as f:
         cols = f.read().split()
-    columns = []
-    for col in cols:
-        columns.append(col)
-    return columns
+    return [col for col in cols]
 
 def attacks():
     """Put attack names and types into a dictionary {name:type}"""
@@ -34,16 +31,13 @@ def add_feature(path, columns, rows):
 def dataframe(path):
     columns = features()
     rows = attacks()
-    df = add_feature(path, columns, rows)
-    return df
+    return add_feature(path, columns, rows)
 
 def shape(path):
-    df = dataframe(path)
-    return df.shape
+    return dataframe(path).shape
 
 def isnull(path):
-    df = dataframe(path)
-    return df.isnull().sum()
+    return dataframe(path).isnull().sum()
 
 def encode_features(path, columns, rows):
     """Encode text data using one-hot encoding method"""
