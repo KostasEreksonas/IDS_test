@@ -57,7 +57,8 @@ def main():
     path = "data/NSL_KDD/KDDTrain+.txt"
     df = NSL_KDD.dataframe(path)
     shape = NSL_KDD.shape(path)
-    print(f"Dataframe:\n{df}\nShape: {shape}")
+    is_null = NSL_KDD.isnull(path)
+    print(f"Dataframe:\n{df}\nShape: {shape}\nIs null:\n{is_null}")
     #neural_network()
 
 if __name__ == "__main__":

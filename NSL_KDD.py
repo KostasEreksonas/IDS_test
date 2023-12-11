@@ -41,6 +41,10 @@ def shape(path):
     df = dataframe(path)
     return df.shape
 
+def isnull(path):
+    df = dataframe(path)
+    return df.isnull().sum()
+
 def encode_features(path, columns, rows):
     """Encode text data using one-hot encoding method"""
     df = add_feature(path, columns, rows)
