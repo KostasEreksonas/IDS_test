@@ -37,6 +37,10 @@ def dataframe(path):
     df = add_feature(path, columns, rows)
     return df
 
+def shape(path):
+    df = dataframe(path)
+    return df.shape
+
 def encode_features(path, columns, rows):
     """Encode text data using one-hot encoding method"""
     df = add_feature(path, columns, rows)

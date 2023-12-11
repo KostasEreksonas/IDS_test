@@ -54,8 +54,10 @@ def neural_network():
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
 def main():
-    df = NSL_KDD.dataframe("data/NSL_KDD/KDDTrain+.txt")
-    print(df)
+    path = "data/NSL_KDD/KDDTrain+.txt"
+    df = NSL_KDD.dataframe(path)
+    shape = NSL_KDD.shape(path)
+    print(f"Dataframe:\n{df}\nShape: {shape}")
     #neural_network()
 
 if __name__ == "__main__":
