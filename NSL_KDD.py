@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import re
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
