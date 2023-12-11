@@ -3,7 +3,6 @@
 import NSL_KDD
 import os
 import matplotlib.pyplot as plt
-import seaborn as sns
 import time
 import tensorflow as tf
 from keras.models import Sequential
