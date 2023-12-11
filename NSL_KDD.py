@@ -31,6 +31,12 @@ def add_feature(path, columns, rows):
     df['Attack Type'] = df['class'].map(rows)
     return df
 
+def dataframe(path):
+    columns = features()
+    rows = attacks()
+    df = add_feature(path, columns, rows)
+    return df
+
 def encode_features(path, columns, rows):
     """Encode text data using one-hot encoding method"""
     df = add_feature(path, columns, rows)

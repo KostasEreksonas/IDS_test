@@ -54,7 +54,9 @@ def neural_network():
     line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
 
 def main():
-    neural_network()
+    df = NSL_KDD.dataframe("data/NSL_KDD/KDDTrain+.txt")
+    print(df)
+    #neural_network()
 
 if __name__ == "__main__":
     main()
