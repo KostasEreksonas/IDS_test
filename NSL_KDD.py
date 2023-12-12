@@ -29,9 +29,7 @@ def add_feature(path, columns, rows):
     return df
 
 def dataframe(path):
-    columns = features()
-    rows = attacks()
-    return add_feature(path, columns, rows)
+    return add_feature(path, features(), attacks())
 
 def shape(path):
     return dataframe(path).shape
@@ -55,7 +53,7 @@ def encode_features(path, columns, rows):
     return df
 
 def preprocessing(path):
-    """Preprocess data for training"""
+    """Preprocess data for training and testing"""
     columns = features()
     rows = attacks()
     scaler = MinMaxScaler()
