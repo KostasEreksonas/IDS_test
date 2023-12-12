@@ -32,6 +32,7 @@ def neural_network():
     end = time.perf_counter()
     print(f"\n[+] Model accuracy\n-----------------------\nAccuracy: {score[1]*100:.2f}%")
     print(f"\n[+] Running time\n-----------------------\nTime: {end-start:.2f} seconds")
+    print(f"\n[+] Graphs\n-----------------------")
     plots.block_scheme(model, "plots/model/model.png")
     plots.line_graph(history, "accuracy", "val_accuracy", "Model accuracy", "Accuracy", "Epoch", "accuracy.png")
     plots.line_graph(history, "loss", "val_loss", "Model loss", "Loss", "Epoch", "loss.png")
