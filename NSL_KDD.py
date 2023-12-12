@@ -49,7 +49,7 @@ def encode_features(path, columns, rows):
     df['flag'] = df['flag'].map(fmap)
     df['service'] = df['service'].map(smap)
     df['class'] = df['class'].map(cmap)
-    df['Attack Type'] = df['Attack Type'].map(tmap)
+    df['attack_type'] = df['attack_type'].map(tmap)
     return df
 
 def preprocessing(path):
