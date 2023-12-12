@@ -25,7 +25,7 @@ def attacks():
 def add_feature(path, columns, rows):
     """Add attack type feature to a dataframe"""
     df = pd.read_csv(path, names = columns)
-    df['Attack Type'] = df['class'].map(rows)
+    df['attack_type'] = df['class'].map(rows)
     return df
 
 def dataframe(path):
