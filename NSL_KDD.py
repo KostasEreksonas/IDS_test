@@ -54,10 +54,8 @@ def encode_features(path, columns, rows):
 
 def preprocessing(path):
     """Preprocess data for training and testing"""
-    columns = features()
-    rows = attacks()
     scaler = MinMaxScaler()
-    data = encode_features(path, columns, rows)
+    data = encode_features(path, features(), attacks())
     X = data[data.columns[:43]]
     X = scaler.fit_transform(X)
     X = np.reshape(X, (X.shape[0], 1, X.shape[1]))
