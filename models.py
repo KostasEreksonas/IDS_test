@@ -8,7 +8,25 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, GRU
 from tensorflow.keras.optimizers import SGD
 
-def neural_network():
+def gaussianNB():
+    pass
+
+def decision_tree():
+    pass
+
+def random_forest():
+    pass
+
+def support_vector_classifier():
+    pass
+
+def logistic_regression():
+    pass
+
+def gradient_descent():
+    pass
+
+def reccurent_neural_network():
     """A deep neural network model"""
     # Load data
     trainX, trainY = NSL_KDD.preprocessing("data/NSL_KDD/KDDTrain+.txt")

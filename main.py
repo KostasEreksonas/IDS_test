@@ -22,7 +22,7 @@ def draw_plots():
         plots.correlation(dataset_name, x)
 
 def main():
-    models.neural_network()
+    models.recurrent_neural_network()
 
 if __name__ == "__main__":
     main()
