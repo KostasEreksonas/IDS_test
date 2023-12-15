@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ip=205.174.165.80
+wget http://$ip/CICDataset/CIC-IDS-2017/Dataset/GeneratedLabelledFlows.md5
+wget http://$ip/CICDataset/CIC-IDS-2017/Dataset/MachineLearningCSV.md5
+wget http://$ip/CICDataset/CIC-IDS-2017/Dataset/GeneratedLabelledFlows.zip && 7z x GeneratedLabelledFlows.zip
+wget http://$ip/CICDataset/CIC-IDS-2017/Dataset/MachineLearningCSV.zip && 7z x MachineLearningCSV.zip
+#wget http://205.174.165.80/CICDataset/CIC-IDS-2017/Dataset/PCAPs/
