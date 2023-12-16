@@ -5,3 +5,4 @@ matplotlib
 scikit-learn
 tensorflow[and-cuda]
 pydot
+tk
