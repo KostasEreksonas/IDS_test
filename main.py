@@ -30,7 +30,8 @@ def draw_plots():
         plots.correlation(dataset_name, x)
 
 def main():
-    distributions.bernoulli()
+    #distributions.bernoulli()
+    distributions.multinomial()
     #models.reccurent_neural_network()
 
 if __name__ == "__main__":
