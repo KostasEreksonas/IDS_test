@@ -1,6 +1,7 @@
 pandas
 seaborn
 numpy
+scipy
 matplotlib
 scikit-learn
 tensorflow[and-cuda]

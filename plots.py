@@ -5,22 +5,16 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import to_categorical, plot_model
 
-def bar_graph(path, dataset_name, column_name, xlabel, ylabel, title):
+def bar_graph(path, dataset_name, keys, values, column_name, xlabel, ylabel, title, folder_name):
     """Draw a bar graph"""
-    df = NSL_KDD.dataframe(path)
-    data = {}
-    keys = df[column_name].unique()
-    for key in keys:
-        data[key] = df[column_name].value_counts()[key]
-    values = list(data.values())
     fig = plt.figure(figsize = (10, 5))
     plt.bar(keys, values, color ='maroon', width = 0.4)
     plt.title(title)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
     plt.grid(visible=None, which='both', axis='both')
-    plt.savefig(f"plots/features/{dataset_name}-{column_name}.png")
-    print(f"Plot saved to plots/features/{dataset_name}-{column_name}.png")
+    plt.savefig(f"plots/{folder_name}/{dataset_name}-{column_name}.png")
+    print(f"Plot saved to plots/{folder_name}/{dataset_name}-{column_name}.png")
 
 def block_scheme(model, path):
     """Draw a block scheme"""
