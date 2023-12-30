@@ -7,6 +7,7 @@ import models
 import plots
 import regressions
 import distributions
+import stats
 
 def draw_plots():
     df = NSL_KDD.dataframe(path)
@@ -31,7 +32,11 @@ def draw_plots():
 
 def main():
     #distributions.bernoulli()
-    distributions.multinomial()
+    #distributions.multinomial()
+    #print(stats.distribution("data/NSL_KDD/KDDTrain+.txt"))
+    #print(stats.attack_types("data/NSL_KDD/KDDTrain+.txt"))
+    #print(stats.attack_subtypes("data/NSL_KDD/KDDTrain+.txt"))
+    #print(stats.group_attacks("data/NSL_KDD/KDDTrain+.txt"))
     #models.reccurent_neural_network()
 
 if __name__ == "__main__":

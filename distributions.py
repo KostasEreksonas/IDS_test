@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import plots
+import stats
 from scipy.stats import binom
 from scipy.stats import multinomial
 import matplotlib.pyplot as plt
