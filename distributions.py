@@ -7,9 +7,17 @@ from scipy.stats import multinomial
 import matplotlib.pyplot as plt
 import NSL_KDD
 
-def bernoulli():
+def attack(path):
+    """Graph a distribution between normal and malicious connections"""
+    dataset_name = path.split("/")[-1].split(".")[0]
+    df = stats.distribution(path)
+    keys = list(df.keys())
+    values = list(df.values())
+    # Plotting the graph
+    plots.bar_graph(path, dataset_name, keys, values, "Connection_dist", "Connections", "Samples", "Attack distribution", "distributions")
+
+def bernoulli(path):
     # Count total values and normal values
-    path = "data/NSL_KDD/KDDTrain+.txt"
     dataset_name = path.split("/")[-1].split(".")[0]
     normal = 0
     df = NSL_KDD.dataframe(path)

@@ -37,6 +37,7 @@ def main():
     #print(stats.attack_types("data/NSL_KDD/KDDTrain+.txt"))
     #print(stats.attack_subtypes("data/NSL_KDD/KDDTrain+.txt"))
     #print(stats.group_attacks("data/NSL_KDD/KDDTrain+.txt"))
+    distributions.attack("data/NSL_KDD/KDDTrain+.txt")
     #models.reccurent_neural_network()
 
 if __name__ == "__main__":
