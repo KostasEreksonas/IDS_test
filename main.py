@@ -21,7 +21,8 @@ def draw_plots():
 
 def main():
     #draw_plots()
-    #print(NSL_KDD.dataframe("data/NSL_KDD/KDDTrain+.txt"))
+    print(NSL_KDD.dataframe("data/NSL_KDD/KDDTrain+.txt"))
+    #print(stats.service("data/NSL_KDD/KDDTrain+.txt"))
     #distributions.bernoulli()
     #distributions.multinomial()
     #models.reccurent_neural_network()

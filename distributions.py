@@ -25,31 +25,14 @@ def types(path):
     # Plotting the graph
     plots.bar_graph(path, dataset_name, keys, values, "Attack_dist", "Attacks", "Samples", "Attack distribution", "distributions")
 
-def split_dictionary(input_dict, size):
-    """Split given dictionary into multpile dictionaries of a given size"""
-    res = []
-    new_dict = {}
-    for key, value in input_dict.items():
-        if len(new_dict) < size:
-            new_dict[key] = value
-        else:
-            res.append(new_dict)
-            new_dict = {key: value}
-    res.append(new_dict)
-    return res
-
 def classes(path):
     """Graph a distribution of attack classes"""
     dataset_name = path.split("/")[-1].split(".")[0]
     df = stats.attack_subtypes(path)
-    df_sorted = sorted(df.items(), key=lambda x:x[1])
-    df = dict(df_sorted)
-    data = split_dictionary(df, 6)
-    for x in range(len(data)):
-        keys = list(data[x].keys())
-        values = list(data[x].values())
-        # Plotting the graph
-        plots.bar_graph(path, dataset_name, keys, values, f"Class_dist-{x+1}", "Classes", "Samples", "Class distribution", "distributions")
+    keys = list(data[x].keys())
+    values = list(data[x].values())
+    # Plotting the graph
+    plots.bar_graph(path, dataset_name, keys, values, f"Class_dist-{x+1}", "Classes", "Samples", "Class distribution", "distributions")
 
 def bernoulli(path):
     # Count total values and normal values
