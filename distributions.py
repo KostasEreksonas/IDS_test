@@ -44,7 +44,7 @@ def classes(path):
     df = stats.attack_subtypes(path)
     df_sorted = sorted(df.items(), key=lambda x:x[1])
     df = dict(df_sorted)
-    data = split_dictionary(df, 4)
+    data = split_dictionary(df, 6)
     for x in range(len(data)):
         keys = list(data[x].keys())
         values = list(data[x].values())

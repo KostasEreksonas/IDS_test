@@ -43,3 +43,9 @@ def group_attacks(path):
         new_df = df[df['attack_type'] == value]
         data[value] = list(new_df['class'].unique())
     return data
+
+def features(path):
+    """Count feature statistics"""
+    df = NSL_KDD.dataframe(path)
+    values = df[''].unique()
+    return values
