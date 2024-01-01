@@ -7,11 +7,11 @@ import NSL_KDD
 #  ---------
 
 class Statistics:
-    """Get unique column values and count their ocurrences"""
     def __init__(self, dataframe, column, data):
         self.dataframe = dataframe
         self.column = column
         self.data = data
+    """Get unique column values and count their ocurrences"""
     def stats(self):
         values = self.dataframe[self.column].unique()
         for value in values:

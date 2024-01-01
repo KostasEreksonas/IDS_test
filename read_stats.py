@@ -21,7 +21,7 @@ def main():
     for x in range(len(name)):
         print(f"{name[x]}:\n{results[x]}")
     var = stats.Relations(NSL_KDD.dataframe(path[0]), "attack_type", {}, "class")
-    print(var.group())
+    print(type(var.group()))
 
 if __name__ == '__main__':
     main()

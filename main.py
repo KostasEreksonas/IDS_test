@@ -9,23 +9,25 @@ import regressions
 import distributions
 import stats
 
-def draw_plots():
+def statistics():
     path = ["data/NSL_KDD/KDDTrain+.txt",
             "data/NSL_KDD/KDDTest+.txt",
             "data/NSL_KDD/KDDTrain+_20Percent.txt",
             "data/NSL_KDD/KDDTest-21.txt"]
-    for x in path:
-        distributions.attack(x)
-        distributions.types(x)
-        distributions.classes(x)
+    name = path[0].split("/")[-1].split(".")[0]
+    df = NSL_KDD.dataframe(path[0])
+    connection_stats = stats.Statistics(df, "attack_type", {})
+    connection = distributions.Plot(path[0], name, connection_stats.stats(), "Connection_dist", "Connections", "Samples", "Connection distribution", "distributions")
+    attack.graph()
+
+    plots.bar_graph(path, dataset_name, keys, values, "Attack_dist", "Attacks", "Samples", "Attack distribution", "distributions")
+    plots.bar_graph(path, dataset_name, keys, values, f"Class_dist-{x+1}", "Classes", "Samples", "Class distribution", "distributions")
+
+def algorithms():
+    models.reccurent_neural_network()
 
 def main():
-    #draw_plots()
-    print(NSL_KDD.dataframe("data/NSL_KDD/KDDTrain+.txt"))
-    #print(stats.service("data/NSL_KDD/KDDTrain+.txt"))
-    #distributions.bernoulli()
-    #distributions.multinomial()
-    #models.reccurent_neural_network()
+    statistics()
 
 if __name__ == "__main__":
     main()
