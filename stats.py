@@ -22,12 +22,14 @@ class Statistics:
 # | Relations |
 #  -----------
 
-def group_attacks(path):
-    """Group attack classes by attack types"""
-    df = NSL_KDD.dataframe(path)
-    values = df['attack_type'].unique()
-    data = {}
-    for value in values:
-        new_df = df[df['attack_type'] == value]
-        data[value] = list(new_df['class'].unique())
-    return data
+class Relations(Statistics):
+    def __init__(self, dataframe, column, data, column2):
+        Statistics.__init__(self, dataframe, column, data)
+        self.column2 = column2
+    def group(self):
+        """Group a column by a different column"""
+        values = self.dataframe[self.column].unique()
+        for value in values:
+            df = self.dataframe[self.dataframe[self.column] == value]
+            self.data[value] = list(df[self.column2].unique())
+        return self.data

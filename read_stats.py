@@ -3,28 +3,25 @@
 import stats
 import NSL_KDD
 
-def read():
+def main():
     """Read statistics of a dataset"""
+    data = {}
     path = ["data/NSL_KDD/KDDTrain+.txt",
             "data/NSL_KDD/KDDTest+.txt",
             "data/NSL_KDD/KDDTrain+_20Percent.txt",
             "data/NSL_KDD/KDDTest-21.txt"]
-    parameters = ["protocol_type", "service", "flag", "class", "attack_type"]
-    results,result = [[] for x in range(2)]
+    columns = ["protocol_type", "service", "flag", "class", "attack_type"]
+    results,name = [[] for x in range(2)]
     for x in path:
-        result.append(x)
-        for parameter in parameters:
-            p1 = stats.Statistics(NSL_KDD.dataframe(x), parameter, {})
-            result.append(parameter)
-            result.append(p1.stats())
-        results.append(result)
-        result = []
-    return results
-
-def main():
-    results = read()
-    for result in results:
-        print(result)
+        name.append(x.split("/")[-1].split(".")[0])
+        for column in columns:
+            col = stats.Statistics(NSL_KDD.dataframe(x), column, {})
+            data[column] = col.stats()
+        results.append(data)
+    for x in range(len(name)):
+        print(f"{name[x]}:\n{results[x]}")
+    var = stats.Relations(NSL_KDD.dataframe(path[0]), "attack_type", {}, "class")
+    print(var.group())
 
 if __name__ == '__main__':
     main()
