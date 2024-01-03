@@ -8,8 +8,7 @@ import matplotlib.pyplot as plt
 import NSL_KDD
 
 class Plot:
-    def __init__(self, path, name, dataframe, column, xlabel, ylabel, title, folder):
-        self.path = path
+    def __init__(self, name, dataframe, column, xlabel, ylabel, title, folder):
         self.name = name
         self.dataframe = dataframe
         self.column = column
@@ -21,4 +20,4 @@ class Plot:
     def graph(self):
         keys = list(self.dataframe.keys())
         values = list(self.dataframe.values())
-        plots.bar_graph(self.path, self.name, keys, values, self.column, self.xlabel, self.ylabel, self.title, self.folder)
+        plots.bar_graph(self.name, keys, values, self.column, self.xlabel, self.ylabel, self.title, self.folder)
