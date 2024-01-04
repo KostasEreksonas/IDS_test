@@ -7,7 +7,7 @@ from tensorflow.keras.utils import to_categorical, plot_model
 
 def bar_graph(dataset_name, keys, values, column_name, xlabel, ylabel, title, folder_name):
     """Draw a bar graph"""
-    fig = plt.figure(figsize = (10, 5))
+    fig = plt.figure(figsize = (50, 50))
     plt.bar(keys, values, color ='maroon', width = 0.4)
     plt.title(title)
     plt.xlabel(xlabel)
