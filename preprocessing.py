@@ -58,6 +58,10 @@ def preprocessing(path):
     data = encode_features(path, features(), attacks())
     X = data[data.columns[:43]]
     X = scaler.fit_transform(X)
-    X = np.reshape(X, (X.shape[0], 1, X.shape[1]))
+    #X = np.reshape(X, (X.shape[0], 1, X.shape[1]))
+    np.savetxt("data.csv", X, delimiter=",")
     Y = data[data.columns[-1]]
+    np.savetxt("labels.csv", Y, delimiter=",")
     return X, Y
+#print(encode_features("data/NSL_KDD/KDDTrain+.txt", features(), attacks()))
+print(preprocessing("data/NSL_KDD/KDDTrain+.txt"))
