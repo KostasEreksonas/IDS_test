@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import stats
-import NSL_KDD
+import preprocessing
 
 def main():
     """Read statistics of a dataset"""

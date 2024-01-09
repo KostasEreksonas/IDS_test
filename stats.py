@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import NSL_KDD
+import preprocessing
 
 #  ---------
 # | Numbers |

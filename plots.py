@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import NSL_KDD
+import preprocessing
 import seaborn as sns
 import matplotlib.pyplot as plt
 from tensorflow.keras.utils import to_categorical, plot_model

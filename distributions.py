@@ -5,7 +5,7 @@ import stats
 from scipy.stats import binom
 from scipy.stats import multinomial
 import matplotlib.pyplot as plt
-import NSL_KDD
+import preprocessing
 
 class Plot:
     def __init__(self, name, dataframe, column, xlabel, ylabel, title, folder):
