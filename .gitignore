@@ -1,6 +1,7 @@
 *
 !.gitignore
 !*.py
+!*.ipynb
 !data/
 !data/*
 !plots/
