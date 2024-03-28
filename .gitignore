@@ -1,6 +1,7 @@
-bin/
-lib/
-lib64
-pyvenv.cfg
-share/
-__pycache__/
+*
+!.gitignore
+!*.py
+!data/
+!data/*
+!plots/
+!plots/*
