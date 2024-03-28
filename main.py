@@ -25,7 +25,7 @@ def algorithms():
     models.reccurent_neural_network()
 
 def main():
-    print(preprocessing.dataframe(path[0]))
+    algorithms
 
 if __name__ == "__main__":
     main()
