@@ -5,6 +5,6 @@ numpy
 scipy
 matplotlib
 scikit-learn
-notebook=6.5.5
+notebook
 tensorflow[and-cuda]
 pydot
