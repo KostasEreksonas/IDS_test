@@ -8,3 +8,4 @@ scikit-learn
 notebook
 tensorflow[and-cuda]
 pydot
+prettytable
