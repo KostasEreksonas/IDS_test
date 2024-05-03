@@ -1,0 +1,83 @@
++------------------------------+------------+----------------+---------------------+
+|            Column            | All Values | Missing Values | % of missing values |
++------------------------------+------------+----------------+---------------------+
+|       Destination Port       |   529918   |       0        |        0.00%        |
+|         Flow Duration        |   529918   |       0        |        0.00%        |
+|       Total Fwd Packets      |   529918   |       0        |        0.00%        |
+|    Total Backward Packets    |   529918   |       0        |        0.00%        |
+| Total Length of Fwd Packets  |   529918   |       0        |        0.00%        |
+|  Total Length of Bwd Packets |   529918   |       0        |        0.00%        |
+|     Fwd Packet Length Max    |   529918   |       0        |        0.00%        |
+|     Fwd Packet Length Min    |   529918   |       0        |        0.00%        |
+|    Fwd Packet Length Mean    |   529918   |       0        |        0.00%        |
+|     Fwd Packet Length Std    |   529918   |       0        |        0.00%        |
+|    Bwd Packet Length Max     |   529918   |       0        |        0.00%        |
+|     Bwd Packet Length Min    |   529918   |       0        |        0.00%        |
+|    Bwd Packet Length Mean    |   529918   |       0        |        0.00%        |
+|     Bwd Packet Length Std    |   529918   |       0        |        0.00%        |
+|         Flow Bytes/s         |   529854   |       64       |        0.01%        |
+|        Flow Packets/s        |   529918   |       0        |        0.00%        |
+|         Flow IAT Mean        |   529918   |       0        |        0.00%        |
+|         Flow IAT Std         |   529918   |       0        |        0.00%        |
+|         Flow IAT Max         |   529918   |       0        |        0.00%        |
+|         Flow IAT Min         |   529918   |       0        |        0.00%        |
+|        Fwd IAT Total         |   529918   |       0        |        0.00%        |
+|         Fwd IAT Mean         |   529918   |       0        |        0.00%        |
+|          Fwd IAT Std         |   529918   |       0        |        0.00%        |
+|          Fwd IAT Max         |   529918   |       0        |        0.00%        |
+|          Fwd IAT Min         |   529918   |       0        |        0.00%        |
+|        Bwd IAT Total         |   529918   |       0        |        0.00%        |
+|         Bwd IAT Mean         |   529918   |       0        |        0.00%        |
+|          Bwd IAT Std         |   529918   |       0        |        0.00%        |
+|          Bwd IAT Max         |   529918   |       0        |        0.00%        |
+|          Bwd IAT Min         |   529918   |       0        |        0.00%        |
+|        Fwd PSH Flags         |   529918   |       0        |        0.00%        |
+|         Bwd PSH Flags        |   529918   |       0        |        0.00%        |
+|         Fwd URG Flags        |   529918   |       0        |        0.00%        |
+|         Bwd URG Flags        |   529918   |       0        |        0.00%        |
+|       Fwd Header Length      |   529918   |       0        |        0.00%        |
+|       Bwd Header Length      |   529918   |       0        |        0.00%        |
+|        Fwd Packets/s         |   529918   |       0        |        0.00%        |
+|         Bwd Packets/s        |   529918   |       0        |        0.00%        |
+|       Min Packet Length      |   529918   |       0        |        0.00%        |
+|       Max Packet Length      |   529918   |       0        |        0.00%        |
+|      Packet Length Mean      |   529918   |       0        |        0.00%        |
+|       Packet Length Std      |   529918   |       0        |        0.00%        |
+|    Packet Length Variance    |   529918   |       0        |        0.00%        |
+|        FIN Flag Count        |   529918   |       0        |        0.00%        |
+|        SYN Flag Count        |   529918   |       0        |        0.00%        |
+|        RST Flag Count        |   529918   |       0        |        0.00%        |
+|        PSH Flag Count        |   529918   |       0        |        0.00%        |
+|        ACK Flag Count        |   529918   |       0        |        0.00%        |
+|        URG Flag Count        |   529918   |       0        |        0.00%        |
+|        CWE Flag Count        |   529918   |       0        |        0.00%        |
+|        ECE Flag Count        |   529918   |       0        |        0.00%        |
+|         Down/Up Ratio        |   529918   |       0        |        0.00%        |
+|      Average Packet Size     |   529918   |       0        |        0.00%        |
+|     Avg Fwd Segment Size     |   529918   |       0        |        0.00%        |
+|     Avg Bwd Segment Size     |   529918   |       0        |        0.00%        |
+|      Fwd Header Length.1     |   529918   |       0        |        0.00%        |
+|      Fwd Avg Bytes/Bulk      |   529918   |       0        |        0.00%        |
+|     Fwd Avg Packets/Bulk     |   529918   |       0        |        0.00%        |
+|       Fwd Avg Bulk Rate      |   529918   |       0        |        0.00%        |
+|      Bwd Avg Bytes/Bulk      |   529918   |       0        |        0.00%        |
+|     Bwd Avg Packets/Bulk     |   529918   |       0        |        0.00%        |
+|      Bwd Avg Bulk Rate       |   529918   |       0        |        0.00%        |
+|     Subflow Fwd Packets      |   529918   |       0        |        0.00%        |
+|       Subflow Fwd Bytes      |   529918   |       0        |        0.00%        |
+|      Subflow Bwd Packets     |   529918   |       0        |        0.00%        |
+|       Subflow Bwd Bytes      |   529918   |       0        |        0.00%        |
+|    Init_Win_bytes_forward    |   529918   |       0        |        0.00%        |
+|    Init_Win_bytes_backward   |   529918   |       0        |        0.00%        |
+|       act_data_pkt_fwd       |   529918   |       0        |        0.00%        |
+|     min_seg_size_forward     |   529918   |       0        |        0.00%        |
+|         Active Mean          |   529918   |       0        |        0.00%        |
+|          Active Std          |   529918   |       0        |        0.00%        |
+|          Active Max          |   529918   |       0        |        0.00%        |
+|          Active Min          |   529918   |       0        |        0.00%        |
+|          Idle Mean           |   529918   |       0        |        0.00%        |
+|           Idle Std           |   529918   |       0        |        0.00%        |
+|           Idle Max           |   529918   |       0        |        0.00%        |
+|           Idle Min           |   529918   |       0        |        0.00%        |
+|             Label            |   529918   |       0        |        0.00%        |
++------------------------------+------------+----------------+---------------------+
