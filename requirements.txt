@@ -9,3 +9,6 @@ notebook
 tensorflow[and-cuda]
 pydot
 prettytable
+xgboost
+optuna
+lightgbm
