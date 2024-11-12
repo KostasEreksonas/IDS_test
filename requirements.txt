@@ -1,14 +1,5 @@
 pandas
-pyarrow
 seaborn
 numpy
-scipy
 matplotlib
-scikit-learn
-notebook
-tensorflow[and-cuda]
-pydot
-prettytable
-xgboost
-optuna
-lightgbm
+torch
