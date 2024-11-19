@@ -5,5 +5,7 @@
 !*.ipynb
 !data/
 !data/*
+!data/*/
+!data/*/*.sh
 !plots/
 !plots/*
