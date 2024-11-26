@@ -4,6 +4,7 @@ seaborn
 numpy
 matplotlib
 torch
+torchvision
 jupyter
 prettytable
 xgboost
