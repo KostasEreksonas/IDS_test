@@ -7,3 +7,5 @@ torch
 jupyter
 prettytable
 xgboost
+catboost
+lightgbm
