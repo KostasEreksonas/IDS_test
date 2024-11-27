@@ -3,10 +3,11 @@ scikit-learn
 seaborn
 numpy
 matplotlib
-torch
-torchvision
 jupyter
 prettytable
 xgboost
 catboost
 lightgbm
+tensorflow
+nvidia-cudnn-cu11
+optuna
