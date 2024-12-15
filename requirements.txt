@@ -11,3 +11,5 @@ lightgbm
 tensorflow
 nvidia-cudnn-cu11
 optuna
+pydot
+graphviz

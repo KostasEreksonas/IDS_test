@@ -8,7 +8,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
-from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical, plot_model
+from tensorflow.keras.losses import categorical_crossentropy
+from sklearn.metrics import accuracy_score, root_mean_squared_error, mean_squared_error, mean_absolute_error, precision_score, confusion_matrix, multilabel_confusion_matrix, classification_report, f1_score, precision_score, recall_score, log_loss
 
 # Step 1: Load the CIC-IDS2017 dataset
 def load_data(filepath):
@@ -75,10 +77,25 @@ def build_model(input_shape, num_classes):
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return model
 
+def metrics(X_test, y_test, y_pred):
+    _, accuracy = model.evaluate(X_test, y_test)
+    cce = categorical_crossentropy(y_test, y_pred)
+    cce.numpy()
+    cce = sum(cce)/len(X_test)
+    y_pred = np.argmax(y_pred, axis=1)
+    y_test = np.argmax(y_test, axis=1)
+    precision = precision_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    f1 = f1_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    recall = recall_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    mae = mean_absolute_error(y_true=y_test,y_pred=y_pred)
+    mse = mean_squared_error(y_true=y_test,y_pred=y_pred)
+    rmse = root_mean_squared_error(y_true=y_test,y_pred=y_pred)
+    return accuracy, precision, f1, recall, mae, mse, rmse, cce
+
 # Main script
 if __name__ == "__main__":
     # Load data
-    filepath = 'data/CIC_IDS_2017'
+    filepath = '../data/CIC_IDS_2017'
     data = load_data(filepath)
 
     # Preprocess data
@@ -97,8 +114,10 @@ if __name__ == "__main__":
     model = build_model(input_shape=(seq_length, X.shape[2]), num_classes=num_classes)
 
     # Model summary
-    #model.summary()
+    model.summary()
+    plot_model(model, "model.png")
 
+    '''
     # Train model
     history = model.fit(
         X_train, y_train,
@@ -108,8 +127,18 @@ if __name__ == "__main__":
     )
 
     # Evaluate model
-    test_loss, test_accuracy = model.evaluate(X_test, y_test)
-    print(f"Test Accuracy: {test_accuracy * 100:.2f}%")
+    y_pred = model.predict(X_test)
+
+    accuracy, precision, f1, recall, mae, mse, rmse, cce = metrics(X_test, y_test, y_pred)
+    print(f"Accuracy: {accuracy * 100:.2f}%")
+    print(f"Precision: {precision}")
+    print(f"F1: {f1}")
+    print(f"Recall: {recall}")
+    print(f"MAE: {mae}")
+    print(f"MSE: {mse}")
+    print(f"RMSE: {rmse}")
+    print(f"Log loss: {cce}")
 
     # Save model
-    model.save('rnn_ids_model.h5')
+    #model.save('rnn_ids_model.h5')
+    '''
