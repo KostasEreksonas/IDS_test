@@ -115,9 +115,8 @@ if __name__ == "__main__":
 
     # Model summary
     model.summary()
-    plot_model(model, "model.png")
+    #plot_model(model, "model.png")
 
-    '''
     # Train model
     history = model.fit(
         X_train, y_train,
@@ -141,4 +140,3 @@ if __name__ == "__main__":
 
     # Save model
     #model.save('rnn_ids_model.h5')
-    '''
