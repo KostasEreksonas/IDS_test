@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+from prettytable import PrettyTable
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
@@ -12,7 +13,7 @@ from tensorflow.keras.utils import to_categorical, plot_model
 from tensorflow.keras.losses import categorical_crossentropy
 from sklearn.metrics import accuracy_score, root_mean_squared_error, mean_squared_error, mean_absolute_error, precision_score, confusion_matrix, multilabel_confusion_matrix, classification_report, f1_score, precision_score, recall_score, log_loss
 
-# Step 1: Load the CIC-IDS2017 dataset
+# Load data
 def load_data(filepath):
     monday = pd.read_csv(f'{filepath}/MachineLearningCVE/Monday-WorkingHours.pcap_ISCX.csv', sep=",", encoding='utf-8')
     tuesday = pd.read_csv(f'{filepath}/MachineLearningCVE/Tuesday-WorkingHours.pcap_ISCX.csv', sep=",", encoding='utf-8')
@@ -30,7 +31,7 @@ def load_data(filepath):
 
     return data
 
-# Step 2: Preprocess the data
+# Preprocess data
 def preprocess_data(data):
     # Drop unnecessary columns (e.g., ID or timestamp if present)
     data = data.drop(columns=[' Flow ID', ' Source IP', ' Destination IP', ' Timestamp'], errors='ignore')
@@ -48,6 +49,8 @@ def preprocess_data(data):
     features = data.drop(columns=[' Label']).values
     labels = data[' Label'].values
     features = scaler.fit_transform(features)
+
+    # Principal component analysis
     num_components = 10
     pca = PCA(n_components=num_components)
     features_pca = pca.fit_transform(features)
@@ -56,8 +59,8 @@ def preprocess_data(data):
 
     return features, labels, num_classes
 
-# Step 3: Prepare sequential data
-def create_sequences(features, labels, seq_length=10):
+# Prepare sequential data
+def create_sequences(features, labels, seq_length):
     sequences, seq_labels = [], []
     for i in range(len(features) - seq_length):
         sequences.append(features[i:i + seq_length])
@@ -78,17 +81,25 @@ def build_model(input_shape, num_classes):
     return model
 
 def metrics(X_test, y_test, y_pred):
+    print("Computing accuracy score")
     _, accuracy = model.evaluate(X_test, y_test)
+    print("Computing Categorical cross-entropy")
     cce = categorical_crossentropy(y_test, y_pred)
     cce.numpy()
     cce = sum(cce)/len(X_test)
     y_pred = np.argmax(y_pred, axis=1)
     y_test = np.argmax(y_test, axis=1)
-    precision = precision_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    print("Computing precision score")
+    precision = precision_score(y_true=y_test, y_pred=y_pred, average="weighted", zero_division=0.0)
+    print("Computing f1 score")
     f1 = f1_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    print("Computing recall score")
     recall = recall_score(y_true=y_test, y_pred=y_pred, average="weighted")
+    print("Computing MAE score")
     mae = mean_absolute_error(y_true=y_test,y_pred=y_pred)
+    print("Computing MSE score")
     mse = mean_squared_error(y_true=y_test,y_pred=y_pred)
+    print("Computing RMSE score")
     rmse = root_mean_squared_error(y_true=y_test,y_pred=y_pred)
     return accuracy, precision, f1, recall, mae, mse, rmse, cce
 
@@ -102,7 +113,7 @@ if __name__ == "__main__":
     features, labels, num_classes = preprocess_data(data)
 
     # Create sequences
-    seq_length = 10
+    seq_length = 20
     X, y = create_sequences(features, labels, seq_length)
     y = to_categorical(y, num_classes=num_classes)  # Convert labels to one-hot encoding
 
@@ -115,13 +126,13 @@ if __name__ == "__main__":
 
     # Model summary
     model.summary()
-    #plot_model(model, "model.png")
+    plot_model(model, "model.png")
 
     # Train model
     history = model.fit(
         X_train, y_train,
-        epochs=20,
-        batch_size=64,
+        epochs=200,
+        batch_size=8192,
         validation_data=(X_val, y_val)
     )
 
@@ -129,14 +140,19 @@ if __name__ == "__main__":
     y_pred = model.predict(X_test)
 
     accuracy, precision, f1, recall, mae, mse, rmse, cce = metrics(X_test, y_test, y_pred)
-    print(f"Accuracy: {accuracy * 100:.2f}%")
-    print(f"Precision: {precision}")
-    print(f"F1: {f1}")
-    print(f"Recall: {recall}")
-    print(f"MAE: {mae}")
-    print(f"MSE: {mse}")
-    print(f"RMSE: {rmse}")
-    print(f"Log loss: {cce}")
+    results = PrettyTable(["Metric", "Result"])
+    results.add_row(["Accuracy", f"{accuracy * 100:.2f}%"])
+    results.add_row(["Precision", f"{precision}"])
+    results.add_row(["F1", f"{f1}"])
+    results.add_row(["Recall", f"{recall}"])
+    results.add_row(["MAE", f"{mae}"])
+    results.add_row(["MSE", f"{mse}"])
+    results.add_row(["RMSE", f"{rmse}"])
+    results.add_row(["Log loss", f"{cce}"])
+    print(results)
+
+    with open("metrics.txt", "w") as file:
+        file.write(str(results))
 
     # Save model
     #model.save('rnn_ids_model.h5')
