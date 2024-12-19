@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 from sklearn.decomposition import PCA
 from sklearn.feature_selection import SelectKBest, f_classif
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.utils import to_categorical, plot_model
@@ -45,7 +45,7 @@ def preprocess_data(data):
     num_classes = len(label_encoder.classes_)
 
     # Normalize numerical features
-    scaler = MinMaxScaler()
+    scaler = StandardScaler()
     features = data.drop(columns=[' Label']).values
     labels = data[' Label'].values
     features = scaler.fit_transform(features)
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     # Train model
     history = model.fit(
         X_train, y_train,
-        epochs=200,
+        epochs=100,
         batch_size=8192,
         validation_data=(X_val, y_val)
     )
