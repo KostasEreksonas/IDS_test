@@ -8,7 +8,7 @@ prettytable
 xgboost
 catboost
 lightgbm
-tensorflow
+tensorflow[and-cuda]
 nvidia-cudnn-cu11
 optuna
 pydot
