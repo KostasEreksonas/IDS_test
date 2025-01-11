@@ -1,0 +1,19 @@
++----------------------------+---------+
+|           Label            |  Count  |
++----------------------------+---------+
+|           BENIGN           | 2273097 |
+|        FTP-Patator         |  231073 |
+|        SSH-Patator         |  158930 |
+|       DoS slowloris        |  128027 |
+|      DoS Slowhttptest      |  10293  |
+|          DoS Hulk          |   7938  |
+|       DoS GoldenEye        |   5897  |
+|         Heartbleed         |   5796  |
+|  Web Attack � Brute Force  |   5499  |
+|      Web Attack � XSS      |   1966  |
+| Web Attack � Sql Injection |   1507  |
+|        Infiltration        |   652   |
+|            DDoS            |    36   |
+|            Bot             |    21   |
+|          PortScan          |    11   |
++----------------------------+---------+

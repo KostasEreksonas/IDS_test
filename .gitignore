@@ -13,3 +13,13 @@
 !RNN/*
 !Misc/
 !Misc/*
+!tables/
+!tables/*
+!images/
+!images/*
+!images/plots/
+!images/plots/*
+!images/results/
+!images/results/*
+!images/confusion_matrices/
+!images/confusion_matrices/*
