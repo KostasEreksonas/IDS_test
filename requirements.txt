@@ -13,3 +13,4 @@ nvidia-cudnn-cu11
 optuna
 pydot
 graphviz
+missingno
